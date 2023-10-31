@@ -1,3 +1,11 @@
+## How to run using AWS CodeBuild
+1. Add code to your GitHub account and add repo
+2. Create account in SonarCloud
+3. Create AWS CodeBuild -> Use Ubuntu image as build source -> link source code repo as GitHub
+4. Login to Sonarcloud -> Accounts -> Generate unique token and save it
+5. Update buildspec.yml with sonar.key and sonar.org and sonar_token
+6. Build CodeBuild and analyse scans in SonarCloud
+
 # Java Reachability Playground
 
 This is an intentionally vulnerable application. It was purposely designed to demonstrate the capabilities of Snyk's Reachable
@@ -12,11 +20,3 @@ crafted (attached as `malicious_file.zip`). When this file is extracted by a vul
 called `good.txt` in the folder `unzipped`, but it will also create a file called `evil.txt` in the `/tmp/` folder. 
 This example is not dangerous, of course, but demonstrates the risk the vulnerability poses - imagine overwriting `.ssh/authorized_keys` or another sensitive file.
 
-
-## How to run using AWS CodeBuild
-1. Add code to your GitHub account and add repo
-2. Create account in SonarCloud
-3. Create AWS CodeBuild -> Use Ubuntu image as build source -> link source code repo as GitHub
-4. Login to Sonarcloud -> Accounts -> Generate unique token and save it
-5. Update buildspec.yml with sonar.key and sonar.org and sonar_token
-6. Build CodeBuild and analyse scans in SonarCloud

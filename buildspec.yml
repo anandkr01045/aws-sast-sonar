@@ -3,19 +3,3 @@ phases:
   build:
     commands:
       - mvn verify sonar:sonar -Dsonar.projectKey=thinkcloudly -Dsonar.organization=devsecops-thinkcloudly -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=1ed48170431874d55c022e22716af3909ec2149e
-      #Dynamic Application Security Scan (DAST scan) using OWASP ZAP
-      
-      - |-
-        apt-get update
-        apt-get -y install wget
-        apt-get -y install default-jdk
-        wget https://github.com/zaproxy/zaproxy/releases/download/v2.14.0/ZAP_2.14.0_Linux.tar.gz
-        mkdir zap
-        tar -xvf ZAP_2.14.0_Linux.tar.gz
-        cd ZAP_2.14.0
-        ./zap.sh -cmd -quickurl http://localhost:3000 -quickprogress -quickout ../zap_report.html 
-#Storing DAST Reports in S3 bucket
-
-artifacts:
-  files:
-    - zap_report.html
