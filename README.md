@@ -6,6 +6,31 @@
 5. Update buildspec.yml with sonar.key and sonar.org and sonar_token
 6. Build CodeBuild and analyse scans in SonarCloud
 
+## How to run using Jenkins Pipeline
+1. Add code to your GitHub account and add repo
+2. Create account in SonarCloud
+3. Login to Sonarcloud -> Accounts -> Generate unique token and save it
+4. Add Sonar Plugin to Jenkins and Create Jenkins Pipeline job
+6. Add Pipeline script code 
+pipeline {
+    agent any
+	    tools {
+        maven 'local_maven'
+      }
+    stages {
+        stage('Checkout') {
+            steps {
+            checkout([$class: 'GitSCM', branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/anandkr01045/aws-sast-sonar.git']]])            
+            }
+        }        
+        stage ("Sonarqube Analysis") {
+            steps {
+                bat 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey="<project_key>" -Dsonar.organization="<sonar_organization>" -Dsonar.host.url="https://sonarcloud.io" -Dsonar.login=<sonar_token>'
+            }
+        }
+	  }
+}
+7. Build Now and view results to the sonar dashboard
 # Java Reachability Playground
 
 This is an intentionally vulnerable application. It was purposely designed to demonstrate the capabilities of Snyk's Reachable
